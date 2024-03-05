@@ -415,7 +415,7 @@ if __name__ == '__main__':
             client.start()
             client.do()
             print("等待3秒，避免接口请求频繁")
-            time.sleep(3000)
+            time.sleep(3)
             client.finish()
             if input("任务结束！输入yes以退出登录，任意内容结束") == 'yes':
                 sign_out()
