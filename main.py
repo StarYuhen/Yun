@@ -77,6 +77,7 @@ def default_post(router, data, headers=None, m_host=None):
     # en=sm4_encrypt("1c233a33887619d7f98b405cf1d1ae6f", data)
     # context=base64.b64encode(en)
     bytes_data = bytes.fromhex(sm4_encrypt("1c233a33887619d7f98b405cf1d1ae6f", data))
+    # base64.b64encode(bytes_data).decode()
     Data = {
         "cipherKey": "BIi2FjS6uXwMu2QvHwAT6JlAh+p8fxFEJTQl8Olbz+CIBr6XBiUeNlwgUIsD/87Bpd+b+Db3sAnYajArr2P62nXj/3eZGvWjji1z08nthQlfEd/6obyLwFAk9UGz2iVvq0/EsfRIHfELI3+zi1SCercirujBAWELxQ==",
         "content": base64.b64encode(bytes_data).decode()
@@ -413,6 +414,8 @@ if __name__ == '__main__':
             client = Yun()
             client.start()
             client.do()
+            print("等待3秒，避免接口请求频繁")
+            time.sleep(3000)
             client.finish()
             if input("任务结束！输入yes以退出登录，任意内容结束") == 'yes':
                 sign_out()
