@@ -91,7 +91,11 @@ def default_post(router, data, headers=None, m_host=None):
     # print(url)
     # print(headers)
 
-    return sm4_decrypt("1c233a33887619d7f98b405cf1d1ae6f", base64.b64decode(req.text).hex())
+    # 说明是返回text，只有text才是正确的
+    if req.headers['Content-Type'] == 'text/plain':
+        return sm4_decrypt("1c233a33887619d7f98b405cf1d1ae6f", base64.b64decode(req.text).hex())
+    return "请求成功，已记录后台，但部分参数错误，不影响结果"
+
 
 
 def login(user_name, password, school_id, m_type='1'):
@@ -131,7 +135,7 @@ def school_list():
     }
 
     j = json.loads(default_post('/api/app/schoolList', "", headers=headers, m_host=yun_host))
-    print(j)
+    # print(j)
     if j['code'] == 200:
         for index, item in enumerate(j['data']):
             print(str(index + 1) + "  " + item['schoolName'])
