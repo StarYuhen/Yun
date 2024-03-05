@@ -1,5 +1,4 @@
 # 真 · 云运动 一键跑步脚本
-## 本仓库现已停止更新，如有需要请谨慎修改使用，欢迎各位大佬的fork
 # 注意！已经有同学遇到被检测出软件作弊而导致健跑全部不合格的情况！请谨慎使用该脚本。
 
 ## 写在前面
@@ -10,6 +9,8 @@
 
 支持云运动3.0.0 版本。
 
+旧版本请看原仓库，本仓库不支持旧版本
+
     Data = {
         "cipherKey": "BIi2FjS6uXwMu2QvHwAT6JlAh+p8fxFEJTQl8Olbz+CIBr6XBiUeNlwgUIsD/87Bpd+b+Db3sAnYajArr2P62nXj/3eZGvWjji1z08nthQlfEd/6obyLwFAk9UGz2iVvq0/EsfRIHfELI3+zi1SCercirujBAWELxQ==",
         "content": sm4_encrypt("1c233a33887619d7f98b405cf1d1ae6f", data)
@@ -19,6 +20,18 @@
 
 
 如果学校的接口版本老旧，可以使用上面指引的代仓库链接
+
+
+若是最后 发送结束信号...后报错，则代表请求过于频繁，可以尝试设置一下时长
+
+
+#### 更新
+在 [issues3](https://github.com/StarYuhen/Yun/issues/3) 
+修复打卡点问题报错
+
+在[issues1](https://github.com/StarYuhen/Yun/issues/1)
+修复  {"msg":"服务异常，请稍后重试！","code":500}
+
 
 ### 免责声明
 

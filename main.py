@@ -63,25 +63,33 @@ def default_post(router, data, headers=None, m_host=None):
             'token': my_token,
             'isApp': 'app',
             'deviceId': my_device_id,
+            'deviceName': my_device_name,
             'version': my_app_edition,
             'platform': 'android',
             'Content-Type': 'application/json; charset=utf-8',
             'Connection': 'Keep-Alive',
             'Accept-Encoding': 'gzip',
-            'User-Agent': 'okhttp/3.12.0'
+            'User-Agent': 'okhttp/3.12.0',
+            'Content-Length': '300',
+            'Accept': '*/*'
         }
 
     # en=sm4_encrypt("1c233a33887619d7f98b405cf1d1ae6f", data)
     # context=base64.b64encode(en)
-
+    bytes_data = bytes.fromhex(sm4_encrypt("1c233a33887619d7f98b405cf1d1ae6f", data))
     Data = {
         "cipherKey": "BIi2FjS6uXwMu2QvHwAT6JlAh+p8fxFEJTQl8Olbz+CIBr6XBiUeNlwgUIsD/87Bpd+b+Db3sAnYajArr2P62nXj/3eZGvWjji1z08nthQlfEd/6obyLwFAk9UGz2iVvq0/EsfRIHfELI3+zi1SCercirujBAWELxQ==",
-        "content": sm4_encrypt("1c233a33887619d7f98b405cf1d1ae6f", data)
+        "content": base64.b64encode(bytes_data).decode()
     }
 
     req = requests.post(url=url, json=Data, headers=headers)
-    print(Data)
-    print(req.text)
+
+    # print(Data)
+    # print(req.text)
+    # print(data)
+    # print(url)
+    # print(headers)
+
     return sm4_decrypt("1c233a33887619d7f98b405cf1d1ae6f", base64.b64decode(req.text).hex())
 
 
@@ -318,13 +326,13 @@ class Yun:
             'userName': self.userName
         }
         headers = {
-            'Content-Type': 'text/plain;charset=utf-8',
+            'Content-Type': 'application/json; charset=utf-8',
             'Connection': 'Keep-Alive',
             'Accept-Encoding': 'gzip',
             'User-Agent': 'okhttp/3.12.0'
         }
         resp = default_post("/run/splitPoints", data=json.dumps(data), headers=headers)
-        print('  ' + resp)
+        # print('  ' + resp)
 
     def do(self):
         sleep_time = self.now_time / (self.task_count + 1)
@@ -341,6 +349,7 @@ class Yun:
     def finish(self):
         print('发送结束信号...')
         data = {
+            'manageList': self.manageList,
             'recordMileage': format(self.now_dist / 1000, '.2f'),
             'recodeCadence': random.randint(self.raCadenceMin, self.raCadenceMax),
             'recodePace': format(self.now_time / 60 / (self.now_dist / 1000), '.2f'),
@@ -356,8 +365,9 @@ class Yun:
             'id': self.crsRunRecordId,
             'duration': self.now_time,
             'recordStartTime': self.recordStartTime,
-            'manageList': self.manageList
+            'remake': '1'
         }
+
         resp = default_post("/run/finish", json.dumps(data))
         print(resp)
 
