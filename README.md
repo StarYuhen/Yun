@@ -25,7 +25,7 @@
 若是最后 发送结束信号...后报错，则代表请求过于频繁，可以尝试设置一下时长
 
 
-#### 更新
+## 疑难杂症解决办法及更新
 
 在[issues5](https://github.com/StarYuhen/Yun/issues/5)
 第1次尝试... .. 第100次尝试 类型的多次尝试问题，该问题由打卡点位引起。
@@ -36,15 +36,17 @@ main.py 选择第88行，其中的   # print("data：", data)，将数据打印
 
 字段随机取一个，如  118.361148,31.284591  写入config.ini的point值解决该问题
 
-
+-- --
 
 在 [issues3](https://github.com/StarYuhen/Yun/issues/3) 
 修复打卡点问题报错
 
+-- --
+
 在[issues1](https://github.com/StarYuhen/Yun/issues/1)
 修复  {"msg":"服务异常，请稍后重试！","code":500}
 
-
+-- --
 ### 免责声明
 
 一切代码仅供研究学习，请勿用于非法用途。
