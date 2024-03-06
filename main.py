@@ -85,17 +85,17 @@ def default_post(router, data, headers=None, m_host=None):
 
     req = requests.post(url=url, json=Data, headers=headers)
 
-    # print(Data)
-    # print(req.text)
-    # print(data)
-    # print(url)
-    # print(headers)
+   # print("data：", data)
+   # print(url)
+   # print(headers)
+
 
     # 说明是返回text，只有text才是正确的
     if req.headers['Content-Type'] == 'text/plain':
-        return sm4_decrypt("1c233a33887619d7f98b405cf1d1ae6f", base64.b64decode(req.text).hex())
+        resp = sm4_decrypt("1c233a33887619d7f98b405cf1d1ae6f", base64.b64decode(req.text).hex())
+        print("解密返回内容：", resp)
+        return resp
     return "请求成功，已记录后台，但部分参数错误，不影响结果"
-
 
 
 def login(user_name, password, school_id, m_type='1'):
